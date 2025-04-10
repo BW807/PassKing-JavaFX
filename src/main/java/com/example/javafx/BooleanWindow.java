@@ -16,13 +16,14 @@ public class BooleanWindow {
 
     public boolean Display(String title, String message) {
         Stage window = new Stage();
+        ButtonUtils bu = new ButtonUtils();
         window.setTitle(title);
         window.initModality(Modality.APPLICATION_MODAL);
 
         Label Title = new Label(message);
 
-        Button Yes = applyEffects(new Button("Yes"));
-        Button No = applyEffects(new Button("No"));
+        Button Yes = bu.applyEffectsBoolWindow(new Button("Yes"));
+        Button No = bu.applyEffectsBoolWindow(new Button("No"));
 
         // VBox constructor is being weird here idk why
         VBox Menu = new VBox(Title);
@@ -51,10 +52,5 @@ public class BooleanWindow {
         window.setScene(scene);
         window.showAndWait();
         return response;
-    }
-
-    private Button applyEffects(Button button) {
-        button.setMinSize(100, 25);
-        return button;
     }
 }

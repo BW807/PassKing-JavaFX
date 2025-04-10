@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("PassKing V1.0");
+        stage.setTitle("Password Manager V1.0");
 
         Scene scene = initializeMainMenu(stage);
 
@@ -32,10 +32,12 @@ public class Main extends Application {
 
     private Scene initializeMainMenu(Stage stage) {
         Label topMenuLabel = new Label("Welcome to PassKing V1.0");
-        Button generateButton = applyEffects(new Button("Generator"));
-        Button closeButton = applyEffects(new Button("Close"));
-        Button editButton = applyEffects(new Button("Edit"));
-        Button viewButton = applyEffects(new Button("View"));
+        ButtonUtils bu = new ButtonUtils();
+
+        Button generateButton = bu.applyEffectsMainMenu(new Button("Generator"));
+        Button closeButton = bu.applyEffectsMainMenu(new Button("Close"));
+        Button editButton = bu.applyEffectsMainMenu(new Button("Editor"));
+        Button viewButton = bu.applyEffectsMainMenu(new Button("Viewer"));
 
         HBox Title = new HBox(topMenuLabel);
         Title.setAlignment(Pos.BASELINE_CENTER);
@@ -50,15 +52,20 @@ public class Main extends Application {
             gen.Display();
         });
 
+        editButton.setOnAction(e -> {
+            Editor edit = new Editor();
+            try {
+                edit.Display();
+            } catch (IOException ex) {
+                System.out.println("Something has gone wrong");
+                ex.printStackTrace();
+                throw new RuntimeException(ex);
+            }
+        });
+
         closeButton.setOnAction(e -> closeProgram(stage));
 
         return new Scene(MainMenu, 320, 240);
-    }
-
-
-    private Button applyEffects(Button button) {
-        button.setMinSize(150, 35);
-        return button;
     }
 
     public static void main(String[] args) {

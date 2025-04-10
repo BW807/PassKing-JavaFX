@@ -66,7 +66,7 @@ public class Generator {
 
         Button Generator = new Button("Generate Password");
 
-        Label Password = new Label("null");
+        Label Password = new Label("Nothing has been generated");
 
         VBox main = new VBox(Title, lengthSetter, Password, Generator, mode);
         main.setSpacing(10);
