@@ -15,18 +15,33 @@ public class BooleanWindow {
     private boolean response;
 
     public boolean Display(String title, String message) {
+        return Display(title, message, 200, 100, null);
+    }
+
+    public boolean Display(String title, String message, int x, int y) {
+        return Display(title, message, x, y, null);
+        //Recursion, very cse 205 core
+    }
+
+    public boolean Display(String title, String message, int x, int y, String extraMessage) {
         Stage window = new Stage();
         ButtonUtils bu = new ButtonUtils();
         window.setTitle(title);
         window.initModality(Modality.APPLICATION_MODAL);
 
-        Label Title = new Label(message);
+        Label frontMessage = new Label(message);
 
         Button Yes = bu.applyEffectsBoolWindow(new Button("Yes"));
         Button No = bu.applyEffectsBoolWindow(new Button("No"));
 
         // VBox constructor is being weird here idk why
-        VBox Menu = new VBox(Title);
+        VBox Menu = new VBox(frontMessage);
+
+        if (extraMessage != null) {
+            Label backMessage = new Label(extraMessage);
+            Menu.getChildren().add(backMessage);
+        }
+
         Menu.getChildren().add(Yes);
         Menu.getChildren().add(No);
         Menu.setSpacing(5);
@@ -48,7 +63,7 @@ public class BooleanWindow {
             window.close();
         });
 
-        Scene scene = new Scene(Menu, 200, 100);
+        Scene scene = new Scene(Menu, x, y);
         window.setScene(scene);
         window.showAndWait();
         return response;

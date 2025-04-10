@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public class Generator {
@@ -104,8 +105,12 @@ public class Generator {
             importWords();
         }
         catch (FileNotFoundException e) {
+            ErrorWindow ew = new ErrorWindow();
+            ew.Display("Error", e.getMessage());
             System.out.println("Error : File not found " + e.getMessage());
             window.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -120,9 +125,10 @@ public class Generator {
             this.wordlist.add(filescnr.nextLine());
         }
 
+        filescnr.close();
     }
 
-    public void importChars() throws FileNotFoundException {
+    public void importChars() throws IOException {
 
         chosenCharList.clear();
 
@@ -133,12 +139,16 @@ public class Generator {
             this.charlistSafe.add(filescnrsafe.nextLine());
         }
 
+        fileInputStreamSafe.close();
+
         FileInputStream fileInputStreamRisky = new FileInputStream("src/main/resources/com/example/javafx/riskychars.txt");
         Scanner filescnrrisky = new Scanner(fileInputStreamRisky);
 
         while (filescnrrisky.hasNextLine()) {
             this.charlistRisky.add(filescnrrisky.nextLine());
         }
+
+        fileInputStreamRisky.close();
 
     }
 
