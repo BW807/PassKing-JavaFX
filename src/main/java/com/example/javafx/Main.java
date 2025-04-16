@@ -20,17 +20,13 @@ public class Main extends Application {
 
         Scene scene = initializeMainMenu(stage);
 
-        stage.setOnCloseRequest(e -> {
-            e.consume();
-            closeProgram(stage);
-        });
-
     //    Scene scene = new Scene(MainMenu, 320, 240);
 
         stage.setScene(scene);
         stage.show();
     }
 
+    public Editor edit = new Editor();
 
     private Scene initializeMainMenu(Stage stage) {
         Label topMenuLabel = new Label("Welcome to PassKing V1.0");
@@ -43,7 +39,7 @@ public class Main extends Application {
 
         HBox Title = new HBox(topMenuLabel);
         Title.setAlignment(Pos.BASELINE_CENTER);
-        VBox Buttons = new VBox(generateButton, editButton, viewButton, closeButton);
+        VBox Buttons = new VBox(editButton, generateButton, viewButton, closeButton);
         Buttons.setSpacing(5);
         Buttons.setAlignment(Pos.BASELINE_CENTER);
         VBox MainMenu = new VBox(Title, Buttons);
@@ -54,8 +50,18 @@ public class Main extends Application {
             gen.Display();
         });
 
+        viewButton.setOnAction(e -> {
+            Viewer viewer = new Viewer();
+            try {
+                viewer.Display();
+            } catch (IOException ex) {
+                System.out.println("Something has gone wrong");
+                ex.printStackTrace();
+                throw new RuntimeException(ex);
+            }
+        });
+
         editButton.setOnAction(e -> {
-            Editor edit = new Editor();
             try {
                 edit.Display();
             } catch (IOException ex) {
@@ -65,22 +71,14 @@ public class Main extends Application {
             }
         });
 
-        closeButton.setOnAction(e -> closeProgram(stage));
+        closeButton.setOnAction(e -> {
+            stage.close();
+        });
 
         return new Scene(MainMenu, 320, 240);
     }
 
     public static void main(String[] args) {
         launch();
-    }
-
-    public void closeProgram(Stage stage) {
-        BooleanWindow bool = new BooleanWindow();
-
-        System.out.println("Logic for saving on close here");
-
-        if (bool.Display("Closing Program", "Are you sure you want to close?")) {
-            stage.close();
-        }
     }
 }

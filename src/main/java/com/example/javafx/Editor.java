@@ -64,7 +64,6 @@ public class Editor {
         main.setAlignment(Pos.CENTER);
 
         //Button logic
-
         updateButton.setOnAction(e -> {
             fileUtils.updateFile();
         });
@@ -99,7 +98,7 @@ public class Editor {
 
         addButton.setOnAction(e -> {
             ComboWindow cw = new ComboWindow();
-            Combo newCombo = cw.Display();
+            Combo newCombo = cw.Display(null);
 
             if (newCombo != null) {
                 fileUtils.printCombo(newCombo);
@@ -111,6 +110,21 @@ public class Editor {
         window.setScene(scene);
 
         window.show();
+
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            closeProgram(window);
+        });
+    }
+
+    public void closeProgram(Stage stage) {
+        BooleanWindow bool = new BooleanWindow();
+
+        if (bool.Display("Closing Program", "Save changes before exiting?")) {
+            fileUtils.updateFile();
+        }
+
+        stage.close();
     }
 
 }

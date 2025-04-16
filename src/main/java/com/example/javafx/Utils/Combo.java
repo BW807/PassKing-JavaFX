@@ -24,6 +24,8 @@ public class Combo {
     public String toString() {
         String done = "";
 
+        done = done + "----->\n";
+
         if (website != null) {
             done = done + "Website: " + website + "\n";
         }
@@ -40,6 +42,7 @@ public class Combo {
             done = done + "Password: " + pass + "\n";
         }
 
+        done = done + "<-----\n";
         done = done + "\n";
         return done;
     }

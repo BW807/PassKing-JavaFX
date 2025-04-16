@@ -13,11 +13,11 @@ import java.util.Scanner;
 
 public class FileUtils {
     private TextArea textArea = new TextArea();
-    private Label currentFile = new Label("");
+    private Label currentFile = null;
     private String rawFileName = "default.txt";
 
     public FileUtils() {
-        textArea.setMaxWidth(500);
+        textArea.setPrefSize(300,200);
     }
 
     public TextArea getTextArea() {
@@ -33,6 +33,10 @@ public class FileUtils {
     }
 
     private void updateCurrentFile(String message, String fileName) {
+        if (currentFile == null) {
+            currentFile = new Label("");
+        }
+
         currentFile.setText(message);
         rawFileName = fileName;
     }

@@ -1,5 +1,9 @@
 package com.example.javafx;
 
+import com.example.javafx.Utils.ButtonUtils;
+import com.example.javafx.Utils.Combo;
+import com.example.javafx.Windows.BooleanWindow;
+import com.example.javafx.Windows.ComboWindow;
 import com.example.javafx.Windows.ErrorWindow;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,20 +17,27 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-public class Generator {
+public class Generator extends Main {
     ArrayList<String> wordlist = new ArrayList<>();
     ArrayList<String> charlistSafe = new ArrayList<>();
     ArrayList<String> charlistRisky = new ArrayList<>();
+
+
     ArrayList<String> chosenWordList = new ArrayList<>();
     ArrayList<String> chosenCharList = new ArrayList<>();
 
     // Not very CSE 205 of me to use all ArrayLists but it wouldn't make much sense to use anything else here.
+
+    //I just realized the top three arraylists could all have been a fixed array
+    //But if it aint broke dont fix it
 
     private String finalPass = "";
     private int length = 1;
 
     public Generator() {
     }
+
+    ButtonUtils utils = new ButtonUtils();
 
     public void Display() {
         Stage window = new Stage();
@@ -66,11 +77,13 @@ public class Generator {
         modeRisk.getItems().addAll("Filtered Chars", "All Chars");
         modeRisk.getSelectionModel().select("All Chars");
 
-        Button Generator = new Button("Generate Password");
+        Button Generator = utils.applyEffectsGenerator(new Button("Generate Password"));
+
+        Button addToFile = utils.applyEffectsGenerator(new Button("Save in Editor Default"));
 
         Label Password = new Label("Nothing has been generated");
 
-        VBox main = new VBox(Title, lengthSetter, Password, Generator, mode);
+        VBox main = new VBox(Title, lengthSetter, Password, addToFile, Generator, mode);
         main.setSpacing(10);
         main.setAlignment(Pos.CENTER);
 
@@ -98,6 +111,23 @@ public class Generator {
             }
             else {
                 main.getChildren().remove(modeRisk);
+            }
+        });
+
+        addToFile.setOnAction(e -> {
+            //Only realized finishing this project i could do this, oops
+
+            BooleanWindow bw = new BooleanWindow();
+
+            if (bw.Display("Warning", "Warning! This will clear\n" +
+                    "default.txt, continue?")) {
+                ComboWindow cw = new ComboWindow();
+                Combo newCombo = cw.Display(finalPass);
+
+                if (newCombo != null) {
+                    edit.fileUtils.printCombo(newCombo);
+                    edit.fileUtils.updateFile();
+                }
             }
         });
 
@@ -173,13 +203,6 @@ public class Generator {
         }
 
         return finalPass;
-
-        /*
-        Combo temp = new Combo(this.finalPass);
-
-        return temp;
-
-         */
     }
 
     public String charPassword(int numChars, String charChoice) {
@@ -218,12 +241,5 @@ public class Generator {
         }
 
         return finalPass;
-
-        /*
-        Combo temp = new Combo(this.finalPass);
-
-        return temp;
-
-         */
     }
 }

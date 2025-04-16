@@ -16,7 +16,7 @@ public class ComboWindow {
 
         private Combo result = null;
 
-        public Combo Display() {
+        public Combo Display(String presetPass) {
             Stage window = new Stage();
             ButtonUtils bu = new ButtonUtils();
             window.setTitle("Combo Creation");
@@ -31,7 +31,13 @@ public class ComboWindow {
 
             Button okay = bu.applyEffectsBoolWindow(new Button("Done"));
 
-            VBox Menu = new VBox(Title, website, user, email, password, okay);
+            VBox Menu = new VBox(Title, website, user, email);
+            if (presetPass == null) {
+                Menu.getChildren().add(password);
+            }
+            Menu.getChildren().add(okay);
+
+
             Menu.setSpacing(4);
 
             Menu.setAlignment(Pos.CENTER);
@@ -42,7 +48,12 @@ public class ComboWindow {
                 TextField emailField = (TextField) email.getChildren().get(1);
                 TextField passwordField = (TextField) password.getChildren().get(1);
 
-                result = new Combo(webField.getText(), userField.getText(), emailField.getText(), passwordField.getText());
+                if (presetPass != null) {
+                    result = new Combo(webField.getText(), userField.getText(), emailField.getText(), presetPass);
+                }
+                else {
+                    result = new Combo(webField.getText(), userField.getText(), emailField.getText(), passwordField.getText());
+                }
                 window.close();
             });
 

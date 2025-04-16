@@ -9,6 +9,11 @@ public class ButtonUtils {
         return button;
     }
 
+    public Button applyEffectsGenerator(Button button) {
+        button.setPrefSize(200, 30);
+        return button;
+    }
+
     public Button applyEffectsBoolWindow(Button button) {
         button.setMinSize(100, 25);
         return button;
