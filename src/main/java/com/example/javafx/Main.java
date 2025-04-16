@@ -1,5 +1,7 @@
 package com.example.javafx;
 
+import com.example.javafx.Windows.BooleanWindow;
+import com.example.javafx.Utils.ButtonUtils;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

@@ -1,5 +1,6 @@
 package com.example.javafx;
 
+import com.example.javafx.Windows.ErrorWindow;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

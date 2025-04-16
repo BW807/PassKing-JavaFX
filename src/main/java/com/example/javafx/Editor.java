@@ -1,5 +1,12 @@
 package com.example.javafx;
 
+import com.example.javafx.Utils.Combo;
+import com.example.javafx.Utils.FileUtils;
+import com.example.javafx.Windows.BooleanWindow;
+import com.example.javafx.Utils.ButtonUtils;
+import com.example.javafx.Windows.ComboWindow;
+import com.example.javafx.Windows.ErrorWindow;
+import com.example.javafx.Windows.StringWindow;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,17 +20,9 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Editor {
+    FileUtils fileUtils = new FileUtils();
 
     public Editor() {
-    }
-
-    private TextArea textArea = new TextArea();
-    private Label currentFile = new Label("");
-    private String rawFileName = "default.txt";
-
-    private void updateCurrentFile(String message, String fileName) {
-        currentFile.setText(message);
-        rawFileName = fileName;
     }
 
     public void Display() throws IOException {
@@ -36,9 +35,9 @@ public class Editor {
         Label reminder = new Label("Note that changes made won't be saved until you click update");
         title.setAlignment(Pos.TOP_CENTER);
 
-        String defaultPage = importCombos(true, null);
+        String defaultPage = fileUtils.importCombos(true, null);
 
-        textArea.setText(defaultPage);
+        fileUtils.getTextArea().setText(defaultPage);
 
         //Buttons
         Button updateButton = bu.applyEffectsBoolWindow(new Button("Save Changes"));
@@ -60,141 +59,58 @@ public class Editor {
         buttonContainer.setSpacing(10);
         buttonContainer.setAlignment(Pos.CENTER);
 
-        VBox main = new VBox(title, reminder, currentFile, textArea, buttonContainer);
+        VBox main = new VBox(title, reminder, fileUtils.getCurrentFile(), fileUtils.getTextArea(), buttonContainer);
         main.setSpacing(10);
         main.setAlignment(Pos.CENTER);
 
         //Button logic
 
         updateButton.setOnAction(e -> {
-            updateFile();
+            fileUtils.updateFile();
+        });
+
+        saveButton.setOnAction(e -> {
+            StringWindow namePrompt = new StringWindow();
+
+            fileUtils.saveCombos(namePrompt.Display("Name Selection", "Input File Name"), fileUtils.getTextArea());
+
         });
 
         clearButton.setOnAction(e -> {
             BooleanWindow booleanWindow = new BooleanWindow();
             if (booleanWindow.Display("?", "Are you sure you want to clear?")) {
-                textArea.clear();
+                fileUtils.getTextArea().clear();
             }
         });
 
         importButton.setOnAction(e -> {
             try {
                 StringWindow namePrompt = new StringWindow();
-                String updatedList = importCombos(false, namePrompt.Display("Name Selection", "Input File Name"));
+                String updatedList = fileUtils.importCombos(false, namePrompt.Display("Name Selection", "Input File Name"));
 
                 if (updatedList != null) {
-                    textArea.setText(updatedList);
+                    fileUtils.getTextArea().setText(updatedList);
                 }
             } catch (IOException ex) {
+                System.out.println("Feel free to ignore the error if exited early.");
                 throw new RuntimeException(ex);
             }
+        });
+
+        addButton.setOnAction(e -> {
+            ComboWindow cw = new ComboWindow();
+            Combo newCombo = cw.Display();
+
+            if (newCombo != null) {
+                fileUtils.printCombo(newCombo);
+            }
+
         });
 
         Scene scene = new Scene(main, 600, 400);
         window.setScene(scene);
 
         window.show();
-    }
-
-    private String importCombos(boolean initialize, String name) throws IOException {
-        String done = "";
-
-        try {
-            if (initialize) {
-            File defaultCheck = new File("default.txt");
-            updateCurrentFile("Current File: " + defaultCheck.getName(), defaultCheck.getName());
-
-            if (defaultCheck.createNewFile()) {
-                System.out.println("Default file not found, creating new one");
-                System.out.println("Doing so at : " + defaultCheck.getAbsolutePath());
-                return "Your default workspace is currently empty\nClick the add button to make your first combo!";
-            }
-            else {
-                Scanner fileScnr = new Scanner(defaultCheck);
-
-                while (fileScnr.hasNextLine()) {
-                    done = done + fileScnr.nextLine() + "\n";
-                }
-
-                if (done.equals("")) {
-                    done = "Your default workspace is currently empty\nClick the add button to make your first combo!";
-                }
-
-                fileScnr.close();
-                return done;
-            }
-
-            }
-            else {
-                if (name == null) {
-                    return null;
-                }
-
-                if (name.contains(" ")) {
-                    ErrorWindow ew = new ErrorWindow();
-                    ew.Display("Error", "Name cannot contain spaces");
-                    return null;
-                }
-
-                if (!name.contains(".txt")) {
-                    System.out.println("Critical error, missing .txt, adding it for user");
-                    name = name + ".txt";
-                }
-
-                System.out.println("done, searching for " + name);
-
-                File searchingFor = new File(name);
-
-                if (searchingFor.exists()) {
-                    System.out.println("Found " + name + " at " + searchingFor.getAbsolutePath());
-
-                    Scanner fileScnr = new Scanner(searchingFor);
-
-                    while (fileScnr.hasNextLine()) {
-                        done = done + fileScnr.nextLine() + "\n";
-                    }
-
-                    updateCurrentFile("Current File: " + searchingFor.getName(), searchingFor.getName());
-
-                    fileScnr.close();
-                    return done;
-                }
-                else {
-                    ErrorWindow ew = new ErrorWindow();
-                    ew.Display("NotFoundError", "The File " + name +
-                            " was not found in: \n" + searchingFor.getAbsolutePath(), 300, 150);
-                }
-            }
-        }
-        catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-
-        return null;
-    }
-
-    private void updateFile() {
-        try {
-            File file = new File(rawFileName);
-
-            if (file.exists()) {
-                PrintWriter pw = new PrintWriter(file);
-                Scanner scnr = new Scanner(textArea.getText());
-
-                while (scnr.hasNextLine()) {
-                    pw.println(scnr.nextLine());
-                }
-
-                pw.close();
-                scnr.close();
-            }
-            else throw new FileNotFoundException();
-
-        } catch (FileNotFoundException e) {
-            ErrorWindow ew = new ErrorWindow();
-            ew.Display("Error", "Cannot find a file named " + rawFileName);
-            throw new RuntimeException(e);
-        }
     }
 
 }

@@ -1,5 +1,6 @@
-package com.example.javafx;
+package com.example.javafx.Windows;
 
+import com.example.javafx.Utils.ButtonUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

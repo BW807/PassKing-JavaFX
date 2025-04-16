@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba9cc353-b55e-4151-9c76-c90ba8bd823c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/ErrorWindow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/StringWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Utils/FileUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Windows/ComboWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx/BooleanWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/BooleanWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/default.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hi.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx/BooleanWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Windows/BooleanWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx/ButtonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Utils/ButtonUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx/Combo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Utils/Combo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx/Editor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Editor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx/ErrorWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Windows/ErrorWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Generator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/javafx/default.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafx/StringWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafx/Windows/StringWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/textname.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,18 +64,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Owner/Documents/GitHub/PassKing-JavaFX",
-    "run.code.analysis.last.selected.profile": "pProject Default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Owner/Documents/GitHub/PassKing-JavaFX&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Ben\Documents\GitHub\JavaFX\src\main\resources\com\example\javafx" />
