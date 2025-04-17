@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -29,6 +30,7 @@ public class Editor {
         Stage window = new Stage();
         ButtonUtils bu = new ButtonUtils();
         window.setTitle("Editor");
+        window.initModality(Modality.APPLICATION_MODAL);
 
         //Constructing menu
         Label title = new Label("Welcome to the Editing page");

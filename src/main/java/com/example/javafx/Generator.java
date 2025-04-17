@@ -10,7 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,6 +46,7 @@ public class Generator extends Main {
     public void Display() {
         Stage window = new Stage();
         window.setTitle("Generator");
+        window.initModality(Modality.APPLICATION_MODAL);
 
         Label Title = new Label("Click below to generate a unique password");
 
@@ -79,11 +84,15 @@ public class Generator extends Main {
 
         Button Generator = utils.applyEffectsGenerator(new Button("Generate Password"));
 
-        Button addToFile = utils.applyEffectsGenerator(new Button("Save in Editor Default"));
+        Button addToFile = utils.applyEffectsGenerator(new Button("Save as \"default.txt\""));
 
         Label Password = new Label("Nothing has been generated");
 
-        VBox main = new VBox(Title, lengthSetter, Password, addToFile, Generator, mode);
+        Button copy = utils.applyEffectsGenerator(new Button("Copy to Clipboard"));
+
+        copy.setDisable(true);
+
+        VBox main = new VBox(Title, lengthSetter, Password, copy, addToFile, Generator, mode);
         main.setSpacing(10);
         main.setAlignment(Pos.CENTER);
 
@@ -103,6 +112,8 @@ public class Generator extends Main {
                 finalPass = charPassword(length, modeRisk.getValue());
                 Password.setText(finalPass);
             }
+
+            copy.setDisable(false);
         });
 
         mode.setOnAction(e -> {
@@ -113,6 +124,14 @@ public class Generator extends Main {
                 main.getChildren().remove(modeRisk);
             }
         });
+
+        copy.setOnAction(e -> {
+            Clipboard clipboard = Clipboard.getSystemClipboard();
+            ClipboardContent content = new ClipboardContent();
+            content.putString(finalPass);
+            clipboard.setContent(content);
+        });
+
 
         addToFile.setOnAction(e -> {
             //Only realized finishing this project i could do this, oops

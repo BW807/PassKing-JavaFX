@@ -21,11 +21,13 @@ public class Viewer extends Main {
         Stage window = new Stage();
         ButtonUtils bu = new ButtonUtils();
         window.setTitle("Viewer");
+        window.initModality(Modality.APPLICATION_MODAL);
 
         //Constructing menu
         Label title = new Label("Welcome to the Viewing page");
         Label reminder = new Label("Here you can safely check your saved files.");
         Button importButton = bu.applyEffectsBoolWindow(new Button("Open File"));
+        importButton.setPrefSize(500, 100);
 
         title.setAlignment(Pos.TOP_CENTER);
 
@@ -52,7 +54,7 @@ public class Viewer extends Main {
             }
         });
 
-        Scene scene = new Scene(vBox, 600, 400);
+        Scene scene = new Scene(vBox, 600, 650);
         window.setScene(scene);
 
         window.show();
